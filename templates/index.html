@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Face Gesture Control</title>
+    <style>
+        body {
+            background-color: #111;
+            color: white;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        img {
+            border: 3px solid #444;
+            border-radius: 8px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .grid button {
+            padding: 20px;
+            border: none;
+            background: #333;
+            color: white;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        .highlight {
+            border: 5px solid yellow;
+            box-shadow: 0 0 15px yellow;
+            background-color: rgba(255, 255, 0, 0.1);
+        }
+        #status {
+            margin-top: 20px;
+            font-size: 18px;
+        }
+    </style>
+    <script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+</head>
+<body>
+    <h1>Face Gesture Control</h1>
+    <img src="{{ url_for('video_feed') }}" width="640" height="480">
+    <div id="status">Head: Center | Blinks: 0</div>
+
+    <div class="grid" id="buttonGrid">
+        <button>1</button><button>2</button><button>3</button>
+        <button>4</button><button>5</button><button>6</button>
+    </div>
+
+    <script>
+        const socket = io();
+        let blinkCount = 0;
+        let currentIndex = 0;
+        const buttons = document.querySelectorAll('#buttonGrid button');
+        buttons[currentIndex].classList.add('highlight');
+
+        function updateHighlight(newIndex) {
+            buttons[currentIndex].classList.remove('highlight');
+            currentIndex = newIndex;
+            buttons[currentIndex].classList.add('highlight');
+        }
+
+        socket.on('gesture', data => {
+            if (data.gesture === 'blink') {
+                blinkCount = data.count;
+                document.getElementById('status').textContent = `Head: ${"Center"} | Blinks: ${blinkCount}`;
+                alert(`Selected button ${currentIndex + 1}`);
+            } else {
+                document.getElementById('status').textContent = `Head: ${data.gesture} | Blinks: ${blinkCount}`;
+                const rowLen = 3;
+                if (data.gesture === 'Right' && (currentIndex % rowLen) < rowLen - 1) {
+                    updateHighlight(currentIndex + 1);
+                } else if (data.gesture === 'Left' && (currentIndex % rowLen) > 0) {
+                    updateHighlight(currentIndex - 1);
+                } else if (data.gesture === 'Up' && currentIndex >= rowLen) {
+                    updateHighlight(currentIndex - rowLen);
+                } else if (data.gesture === 'Down' && currentIndex < buttons.length - rowLen) {
+                    updateHighlight(currentIndex + rowLen);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
