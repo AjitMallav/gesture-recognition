@@ -1,8 +1,8 @@
-# 🎯 Gesture-Controlled Navigation
+# Gesture-Controlled Navigation
 
 A web application that allows users to navigate through buttons using head movements and eye blinks captured through their webcam. The camera feed is integrated directly into the web interface with real-time gesture detection.
 
-## ✨ Features
+## Features
 
 - **Integrated Camera Feed**: Real-time camera display directly in the web browser
 - **Head Movement Detection**: Tilt your head left/right to navigate between buttons
@@ -12,7 +12,7 @@ A web application that allows users to navigate through buttons using head movem
 - **Keyboard Fallback**: Use arrow keys and Enter as an alternative
 - **Debug Tools**: Built-in testing buttons to verify gesture recognition
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -41,46 +41,13 @@ A web application that allows users to navigate through buttons using head movem
 4. **Open your browser**
    Navigate to: `http://localhost:5050`
 
-## 🎮 How to Use
+## How to Use
 
 ### Gesture Controls
 
 - **👈 Tilt Head Left**: Move to the previous button
 - **👉 Tilt Head Right**: Move to the next button  
 - **😉 Blink**: Click the currently highlighted button
-
-### Keyboard Controls (Alternative)
-
-- **← Left Arrow**: Previous button
-- **→ Right Arrow**: Next button
-- **Enter** or **Space**: Click highlighted button
-
-### Navigation Flow
-
-1. The first button (Home) will be highlighted by default
-2. Tilt your head left/right to move between buttons
-3. Blink to select the highlighted button
-4. The status display will show your current selection and detected gestures
-5. Watch the camera feed to see your face with mesh overlay and gesture detection
-
-### Debug Tools
-
-Use the debug buttons at the bottom of the page to test if gesture recognition is working:
-- **Test Left**: Simulates a left head tilt
-- **Test Right**: Simulates a right head tilt  
-- **Test Blink**: Simulates an eye blink
-
-## 🔧 Technical Details
-
-- **Backend**: Flask with Socket.IO for real-time communication
-- **Computer Vision**: OpenCV and MediaPipe for face detection and landmark tracking
-- **Frontend**: HTML5, CSS3, JavaScript with responsive design
-- **Camera Integration**: Real-time camera feed with base64 encoding and WebSocket streaming
-- **Gesture Recognition**: 
-  - Eye Aspect Ratio (EAR) for blink detection
-  - Head pose estimation for movement detection
-  - Face mesh visualization with MediaPipe
-  - Debounced gesture handling to prevent false positives
 
 ## 📁 Project Structure
 
@@ -99,7 +66,7 @@ Gesture-Recognition/
 └── README.md             # This file
 ```
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### Common Issues
 
@@ -116,18 +83,6 @@ Gesture-Recognition/
    - Check that your face is fully visible
    - Use the debug buttons to test if the system is working
    - Check browser console (F12) for error messages
-
-3. **Application won't start**
-   - Verify all dependencies are installed: `pip install -r requirements.txt`
-   - Check if port 5050 is available
-   - Ensure you have Python 3.7+ installed
-
-4. **Gesture recognition not working**
-   - Check if the gesture tracker starts (should see "Gesture tracker started" message)
-   - Look for console messages in the terminal running `python app.py`
-   - Try the debug buttons to test communication
-   - Ensure your face is clearly visible and well-lit
-   - Try more deliberate head movements (tilt further left/right)
 
 ### Performance Tips
 
